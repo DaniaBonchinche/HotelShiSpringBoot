@@ -44,7 +44,7 @@ public class User {
 	
 	@OneToOne(optional = false,fetch =FetchType.LAZY)
 	@JsonBackReference
-	@JoinColumn(name="rooms_id", unique = true, nullable = false, updatable = false)
+	@JoinColumn(name="rooms_id", unique = true, nullable = true, updatable = true)
 	private Room room;
 	
 	@OneToOne(optional = false, mappedBy="user",fetch =FetchType.LAZY)

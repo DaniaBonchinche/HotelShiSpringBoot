@@ -1,5 +1,7 @@
 package com.yuziak.Hotelshi.rest;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class RoomController {
 	@Autowired
 	private RoomRepo roomRepo;
 	
-	@CrossOrigin (origins = "http://localhost:3000")
+	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Room> getRoom(@PathVariable("id") Integer roomid) {
 		if (roomid == null) {
@@ -40,6 +42,20 @@ public class RoomController {
 
 		return new ResponseEntity<Room>(room, HttpStatus.OK);
 	}
+	
+	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<List<Room>> getRoom() {
+
+		List<Room> rooms = (List<Room>) roomRepo.findAll();
+		if (rooms == null) {
+			return new ResponseEntity<List<Room>>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<List<Room>>(rooms, HttpStatus.OK);
+	}
+	
+	
 
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Room> saveRoom(@RequestBody @Valid Room room) {

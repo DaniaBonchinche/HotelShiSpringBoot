@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class MessagesController {
 	@Autowired
 	ChatRepo chatRepo;
 
+	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Messages> saveMessage(@RequestBody @Valid JSONObject json) {
 		HttpHeaders headers = new HttpHeaders();
@@ -47,17 +49,18 @@ public class MessagesController {
 		this.mesRepo.save(messages);
 		return new ResponseEntity<Messages>(messages, headers, HttpStatus.CREATED);
 	}
-
+	
+	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<Messages>> getMessages(@PathVariable("id") Integer chatid) {
-		if (chatid == null) {
+	public ResponseEntity<List<Messages>> getMessages(@PathVariable("id") Integer userid) {
+		if (userid == null) {
 			return new ResponseEntity<List<Messages>>(HttpStatus.BAD_REQUEST);
 		}
 		List<Messages> messages = (List<Messages>) this.mesRepo.findAll();
 		List<Messages> messageres =new LinkedList<Messages>();
 		
 		for (Messages m : messages) {
-			if (m.getChat().getId() == chatid) {
+			if (m.getChat().getUser().getId() == userid) {
 				messageres.add(m);
 			}
 		}

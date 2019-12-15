@@ -29,7 +29,7 @@ public class Room {
 	private String com;
 	
 	@OneToOne(optional = false, mappedBy="room",fetch =FetchType.LAZY)
-	@JsonBackReference
+	@JsonManagedReference
 	private User user;
 	
 	@OneToOne(optional = false, mappedBy = "room",fetch = FetchType.LAZY)

@@ -72,6 +72,14 @@ public class Messages {
 	public void setChat(Chat chat) {
 		this.chat = chat;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 	
 
