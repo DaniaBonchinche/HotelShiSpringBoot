@@ -20,7 +20,8 @@ public class UsersController {
 	@Autowired
 	private UserRepo UserRepo;
 	
-
+	
+	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<User> getRoom(@PathVariable("id") Integer userid) {
 		if (userid == null) {

@@ -30,7 +30,7 @@ public class ClimatController {
 	@Autowired
 	private RoomRepo RoomRepo;
 	
-	
+	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Climat> saveClimat(@RequestBody @Valid JSONObject json) {
 		HttpHeaders headers = new HttpHeaders();
@@ -47,7 +47,7 @@ public class ClimatController {
 		return new ResponseEntity<Climat>(climat, headers, HttpStatus.CREATED);
 	}
 
-	
+	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
 	@RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Climat> updateClimat(@RequestBody @Valid JSONObject json) {
 		HttpHeaders headers = new HttpHeaders();

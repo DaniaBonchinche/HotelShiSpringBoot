@@ -34,7 +34,7 @@ public class MessagesController {
 	@Autowired
 	ChatRepo chatRepo;
 	
-	
+	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Messages> saveMessage(@RequestBody @Valid JSONObject json) {
 		HttpHeaders headers = new HttpHeaders();
@@ -50,7 +50,7 @@ public class MessagesController {
 		return new ResponseEntity<Messages>(messages, headers, HttpStatus.CREATED);
 	}
 	
-	
+	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<List<Messages>> getMessages(@PathVariable("id") Integer userid) {
 		if (userid == null) {
