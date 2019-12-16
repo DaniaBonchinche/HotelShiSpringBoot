@@ -28,7 +28,7 @@ public class RoomController {
 	@Autowired
 	private RoomRepo roomRepo;
 	
-	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
+	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Room> getRoom(@PathVariable("id") Integer roomid) {
 		if (roomid == null) {
@@ -43,7 +43,7 @@ public class RoomController {
 		return new ResponseEntity<Room>(room, HttpStatus.OK);
 	}
 	
-	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
+	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<List<Room>> getRoom() {
 
@@ -56,7 +56,6 @@ public class RoomController {
 	}
 	
 	
-
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Room> saveRoom(@RequestBody @Valid Room room) {
 		HttpHeaders headers = new HttpHeaders();
@@ -68,6 +67,7 @@ public class RoomController {
 		this.roomRepo.save(room);
 		return new ResponseEntity<Room>(room, headers, HttpStatus.CREATED);
 	}
+	
 	@RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Room> updateRoom(@RequestBody @Valid JSONObject json) {
 		HttpHeaders headers = new HttpHeaders();

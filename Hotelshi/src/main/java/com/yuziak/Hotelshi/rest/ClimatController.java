@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,8 @@ public class ClimatController {
 
 	@Autowired
 	private RoomRepo RoomRepo;
-
+	
+	
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Climat> saveClimat(@RequestBody @Valid JSONObject json) {
 		HttpHeaders headers = new HttpHeaders();
@@ -45,6 +47,7 @@ public class ClimatController {
 		return new ResponseEntity<Climat>(climat, headers, HttpStatus.CREATED);
 	}
 
+	
 	@RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Climat> updateClimat(@RequestBody @Valid JSONObject json) {
 		HttpHeaders headers = new HttpHeaders();

@@ -42,8 +42,8 @@ public class AuthController {
 
 	@Autowired
 	private UserService userService;
-
-	@CrossOrigin(origins = {"http://localhost:3000","http://109.86.204.249:3000"})
+	
+	@CrossOrigin
 	@PostMapping()
 	public ResponseEntity login(@RequestBody AuthenticationRequestDto us) {
 		try {
@@ -68,7 +68,7 @@ public class AuthController {
 		}
 	}
 
-	@CrossOrigin(origins = {"http://localhost:3000","http://109.86.204.249:3000"})
+	@CrossOrigin
 	@PostMapping("/ver")
 	public ResponseEntity ver(@RequestBody JwtDto Jwt) {
 		try {
