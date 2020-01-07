@@ -7,4 +7,5 @@ import com.yuziak.Hotelshi.entity.Climat;
 
 public interface ChatRepo extends PagingAndSortingRepository<Chat, Integer> {
 	Chat findByid(int id);
+	Chat findByuser_id(int id);
 }
