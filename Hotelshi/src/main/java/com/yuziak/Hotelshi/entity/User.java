@@ -2,6 +2,7 @@ package com.yuziak.Hotelshi.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -47,12 +50,16 @@ public class User {
 	@JoinColumn(name="rooms_id", unique = true, nullable = true, updatable = true)
 	private Room room;
 	
-	@OneToOne(optional = false, mappedBy="user",fetch =FetchType.LAZY)
-	@JsonManagedReference
+	@OneToOne(optional = false, mappedBy="user",fetch =FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@JsonBackReference
 	private Chat chat;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JsonBackReference
+	@ManyToMany(fetch = FetchType.EAGER,cascade = {
+			CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.PERSIST})
+	@JsonManagedReference
     @JoinTable(name = "user_roles",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})

@@ -1,5 +1,6 @@
 package com.yuziak.Hotelshi.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,11 +29,11 @@ public class Room {
 	@Column(name="comment")
 	private String com;
 	
-	@OneToOne(optional = false, mappedBy="room",fetch =FetchType.LAZY)
+	@OneToOne(optional = false, mappedBy="room",fetch =FetchType.LAZY , cascade = CascadeType.REMOVE)
 	@JsonManagedReference
 	private User user;
 	
-	@OneToOne(optional = false, mappedBy = "room",fetch = FetchType.LAZY)
+	@OneToOne(optional = false, mappedBy = "room",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JsonManagedReference
 	private Climat climat;
 
@@ -56,6 +57,12 @@ public class Room {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Climat getClimat() {
+		return climat;
+	}
+	public void setClimat(Climat climat) {
+		this.climat = climat;
 	}
 
 }

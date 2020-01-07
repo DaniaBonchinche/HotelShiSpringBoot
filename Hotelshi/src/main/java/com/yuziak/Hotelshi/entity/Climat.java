@@ -1,5 +1,6 @@
 package com.yuziak.Hotelshi.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +25,7 @@ public class Climat {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	
-	@OneToOne(optional = false,fetch =FetchType.EAGER )
+	@OneToOne(optional = false,fetch =FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@JsonBackReference
 	@JoinColumn(name="rooms_id", unique = true, nullable = false, updatable = true)
 	private Room room;

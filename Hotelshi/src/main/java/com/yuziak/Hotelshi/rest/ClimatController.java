@@ -16,19 +16,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yuziak.Hotelshi.entity.Climat;
 import com.yuziak.Hotelshi.entity.Room;
+import com.yuziak.Hotelshi.entity.User;
 import com.yuziak.Hotelshi.repository.ClimRepo;
 import com.yuziak.Hotelshi.repository.RoomRepo;
+import com.yuziak.Hotelshi.repository.UserRepo;
 
 import net.minidev.json.JSONObject;;
 
 @RestController
-@RequestMapping("api/climat")
+@RequestMapping("/climat")
 public class ClimatController {
 	@Autowired
 	private ClimRepo climRepo;
 
 	@Autowired
 	private RoomRepo RoomRepo;
+	
+	@Autowired
+	private UserRepo UserRepo;
 	
 	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -64,13 +69,30 @@ public class ClimatController {
 		this.climRepo.save(climat);
 		return new ResponseEntity<Climat>(climat, headers, HttpStatus.OK);
 	}
-
+	
+	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Climat> getClimat(@PathVariable("id") int climid) {
-		if (climid == 0) {
+	public ResponseEntity<Climat> getClimat(@PathVariable("id") int roomid) {
+		if (roomid == 0) {
 			return new ResponseEntity<Climat>(HttpStatus.BAD_REQUEST);
 		}
-		Climat climat = this.climRepo.findByid(climid);
+		
+		Climat climat = this.RoomRepo.findByid(roomid).getClimat();
+
+		if (climat == null) {
+			return new ResponseEntity<Climat>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Climat>(climat, HttpStatus.OK);
+	}
+	
+	@CrossOrigin (origins = {"http://localhost:3000","http://109.86.204.249:3000"})
+	@RequestMapping(value = "user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Climat> getClimatByUser(@PathVariable("id") int userid) {
+		if (userid == 0) {
+			return new ResponseEntity<Climat>(HttpStatus.BAD_REQUEST);
+		}
+		User user = this.UserRepo.findByid(userid);
+		Climat climat = this.RoomRepo.findByuser(user).getClimat();
 
 		if (climat == null) {
 			return new ResponseEntity<Climat>(HttpStatus.NOT_FOUND);

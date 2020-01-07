@@ -2,6 +2,7 @@ package com.yuziak.Hotelshi.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +32,7 @@ public class Chat {
 	@JoinColumn(name = "users_id", unique = true, nullable = false, updatable = false)
 	private User user;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "chat")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "chat", cascade = CascadeType.REMOVE)
 	@JsonBackReference
 	@JsonManagedReference
 	private Set<Messages> mes;

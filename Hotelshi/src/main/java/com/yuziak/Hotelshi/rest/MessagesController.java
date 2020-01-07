@@ -42,7 +42,14 @@ public class MessagesController {
 		messages.setText((String) json.get("text"));
 		messages.setAut((String) json.get("aut"));
 		messages.setTime(new Date());
-		Integer chatId = (Integer) json.get("chats_id");
+		List<Chat> chats = (List<Chat>) chatRepo.findAll();
+		Integer chatId =  (Integer) json.get("chats_id");
+		for (Chat chat : chats) {
+			if(chat.getUser().getId()==chatId) {
+				chatId=chat.getId();
+			}
+		}
+		
 		Chat chat = this.chatRepo.findByid(chatId);
 		messages.setChat(chat);
 
